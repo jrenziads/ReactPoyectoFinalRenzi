@@ -1,0 +1,41 @@
+.producto-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+
+.producto-img {
+  max-width: 300px; /* Ajusta el ancho máximo de la imagen según sea necesario */
+  margin-right: 20px;
+}
+
+.producto-info {
+  flex: 1;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+Link {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+Link:hover {
+  background-color: darkblue;
+}
+
