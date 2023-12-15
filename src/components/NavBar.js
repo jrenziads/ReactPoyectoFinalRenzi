@@ -6,7 +6,7 @@ function NavBar(){
         <nav>
             <Link to="/">Home</Link>
             <Link to="galeria">Galeria</Link>
-            <Link to="productos">Vehiculos</Link>
+            <Link to="productos">Productos</Link>
             <CartWidget/>
         </nav>
 
