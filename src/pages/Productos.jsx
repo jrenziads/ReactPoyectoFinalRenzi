@@ -6,19 +6,13 @@ import { Link, useLocation } from 'react-router-dom';
 
 function Productos() {
   const location = useLocation();
-  const [filtroTipo, setFiltroTipo] = useState('');
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
     const tipoParam = new URLSearchParams(location.search).get('tipo');
-    setFiltroTipo(tipoParam || '');
 
     const itemsCollection = collection(db, 'items');
-    let q = query(itemsCollection);
-
-    if (filtroTipo) {
-      q = query(itemsCollection, where('tipo', '==', filtroTipo));
-    }
+    const q = tipoParam ? query(itemsCollection, where('tipo', '==', tipoParam)) : query(itemsCollection);
 
     getDocs(q).then((snapshot) => {
       const productosData = [];
@@ -27,16 +21,16 @@ function Productos() {
       });
       setProductos(productosData);
     });
-  }, [location.search, filtroTipo]);
+  }, [location.search]);
 
   return (
     <div>
       <h2>Elegi tu proximo TOYOTA</h2>
       <div>
-        <button onClick={() => setFiltroTipo('')}>Todos</button>
-        <button onClick={() => setFiltroTipo('Sedan')}>Sedan</button>
-        <button onClick={() => setFiltroTipo('SUV')}>SUV</button>
-        <button onClick={() => setFiltroTipo('PickUP')}>PickUP</button>
+        <button onClick={() => window.location.search = ''}>Todos</button>
+        <button onClick={() => window.location.search = 'tipo=Sedan'}>Sedan</button>
+        <button onClick={() => window.location.search = 'tipo=SUV'}>SUV</button>
+        <button onClick={() => window.location.search = 'tipo=PickUP'}>PickUP</button>
       </div>
       <div className="galeria">
         {productos.map((producto) => (

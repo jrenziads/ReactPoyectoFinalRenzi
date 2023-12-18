@@ -5,10 +5,18 @@ const Carrito = ({ carrito, quitarDelCarrito, vaciarCarrito, realizarCompra }) =
   const [idCompra, setIdCompra] = useState('');
 
   const manejarRealizarCompra = () => {
-    const idAleatorio = Math.floor(Math.random() * 1000000);
+    const idAleatorio = Math.floor(Math.random() * 1000000); // Genera un ID aleatorio
     realizarCompra(idAleatorio);
     setIdCompra(idAleatorio.toString());
     setCompraRealizada(true);
+  };
+
+  const calcularTotalProducto = (producto) => {
+    return producto.cantidad * producto.precio;
+  };
+
+  const calcularTotalCarrito = () => {
+    return carrito.reduce((total, producto) => total + calcularTotalProducto(producto), 0);
   };
 
   return (
@@ -21,11 +29,12 @@ const Carrito = ({ carrito, quitarDelCarrito, vaciarCarrito, realizarCompra }) =
           <ul>
             {carrito.map((producto) => (
               <li key={producto.id}>
-                {producto.title} - ${producto.precio} x {producto.cantidad}
+                {producto.title} - ${producto.precio} x {producto.cantidad} = ${calcularTotalProducto(producto)}
                 <button onClick={() => quitarDelCarrito(producto.id)}>Quitar</button>
               </li>
             ))}
           </ul>
+          <p>Total del Carrito: ${calcularTotalCarrito()}</p>
           <button onClick={vaciarCarrito}>Vaciar Carrito</button>
           <button onClick={manejarRealizarCompra}>Realizar Compra</button>
         </>

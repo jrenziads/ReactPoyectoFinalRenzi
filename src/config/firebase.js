@@ -6,7 +6,7 @@ import {getAuth, GoogleAuthProvider} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "proces.env.REAC_APP_apikey",
-  authDomain: "clase13-34b2f.firebaseapp.com",
+  authDomain: "proces.env.REACT_APP_authDomain",
   projectId: "clase13-34b2f",
   storageBucket: "clase13-34b2f.appspot.com",
   messagingSenderId: "646026783577",

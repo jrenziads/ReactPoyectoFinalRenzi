@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getDoc, doc, collection } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import './Producto.css';
 
 function Producto({ agregarAlCarrito }) {
+  const navigate = useNavigate();
   const { productoId } = useParams();
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
@@ -28,14 +29,18 @@ function Producto({ agregarAlCarrito }) {
   }, [productoId]);
 
   const manejarAgregarAlCarrito = () => {
-    const productoEnCarrito = {
-      id: producto.id,
-      title: producto.title,
-      precio: producto.precio,
-      cantidad: cantidad,
-    };
+    if (producto) {
+      const productoEnCarrito = {
+        id: producto.id,
+        title: producto.title,
+        precio: producto.precio,
+        cantidad: cantidad,
+        subtotal: cantidad * producto.precio,
+      };
 
-    agregarAlCarrito(productoEnCarrito);
+      agregarAlCarrito(productoEnCarrito);
+      navigate('/carrito');  // Redirige a la página de Carrito después de agregar al carrito
+    }
   };
 
   return (
@@ -58,6 +63,8 @@ function Producto({ agregarAlCarrito }) {
               />
             </label>
             <button onClick={manejarAgregarAlCarrito}>Agregar al Carrito</button>
+            <br />
+            <br />
             <Link to="/productos">Volver</Link>
           </div>
         </>
