@@ -8,7 +8,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import Producto from "./pages/Producto";
 import Carrito from "./pages/Carrito";
-
+import { CarritoProvider } from './components/CarritoContext';
 function App() {
   const [carrito, setCarrito] = useState([]);
 
@@ -25,11 +25,11 @@ function App() {
   };
 
   const realizarCompra = (idCompra) => {
-    // Lógica para realizar la compra (por ejemplo, enviar la información al servidor)
     console.log('Compra realizada con éxito. ID de compra:', idCompra);
   };
 
   return (
+    <CarritoProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -42,6 +42,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </CarritoProvider>
   );
 }
 

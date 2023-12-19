@@ -1,42 +1,62 @@
 import React, { useState } from 'react';
+import { useCarrito } from '../components/CarritoContext';
+import { useNavigate } from 'react-router-dom';
 
-const Carrito = ({ carrito, quitarDelCarrito, vaciarCarrito, realizarCompra }) => {
+const Carrito = () => {
+  const {
+    carrito,
+    quitarDelCarrito,
+    vaciarCarrito,
+    realizarCompra,
+    obtenerCantidadTotal,
+    obtenerPrecioTotal,
+  } = useCarrito();
+
   const [compraRealizada, setCompraRealizada] = useState(false);
-  const [idCompra, setIdCompra] = useState('');
+  const [idCompra] = useState(generarIdCompra());
+  const navigate = useNavigate();
+
+  function generarIdCompra() {
+    return Math.floor(Math.random() * 1000000).toString();
+  }
 
   const manejarRealizarCompra = () => {
-    const idAleatorio = Math.floor(Math.random() * 1000000); 
-    setIdCompra(idAleatorio.toString());
     setCompraRealizada(true);
+    realizarCompra(idCompra);
   };
 
-  const calcularTotalProducto = (producto) => {
-    return producto.cantidad * producto.precio;
+  const manejarSeguirComprando = () => {
+
+    navigate('/productos');
   };
 
-  const calcularTotalCarrito = () => {
-    return carrito.reduce((total, producto) => total + calcularTotalProducto(producto), 0);
+  const manejarFinalizarCompra = () => {
+    vaciarCarrito();
+    setCompraRealizada(false);
   };
 
   return (
     <div>
       <h2>Carrito de Compras</h2>
       {compraRealizada ? (
-        <p>Su compra fue realizada con éxito bajo el ID: {idCompra}</p>
+        <>
+          <p>Su compra fue realizada con éxito bajo el ID: {idCompra}</p>
+        </>
       ) : (
         <>
-          <ul>
+          <ul >
             {carrito.map((producto) => (
               <li key={producto.id}>
-                {producto.title} - ${producto.precio} x {producto.cantidad} = ${calcularTotalProducto(producto)}
+                {producto.title} - ${producto.precio} x {producto.cantidad} = ${producto.subtotal}
                 <button onClick={() => quitarDelCarrito(producto.id)}>Quitar</button>
               </li>
             ))}
           </ul>
-          <p>Total del Carrito: ${calcularTotalCarrito()}</p>
+          <p>Total del Carrito: ${obtenerPrecioTotal()}</p>
+          <p>Cantidad de productos: {obtenerCantidadTotal()}</p>
           <button onClick={vaciarCarrito}>Vaciar Carrito</button>
           <button onClick={manejarRealizarCompra}>Realizar Compra</button>
-          <button>Seguir Comprando</button>
+          <button onClick={manejarSeguirComprando}>Seguir Comprando</button>
         </>
       )}
     </div>

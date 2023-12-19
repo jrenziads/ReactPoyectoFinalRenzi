@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getDoc, doc, collection } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { useCarrito } from '../components/CarritoContext';
 import './Producto.css';
 
-function Producto({ agregarAlCarrito }) {
+function Producto() {
   const navigate = useNavigate();
   const { productoId } = useParams();
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
+
+  const { agregarAlCarrito } = useCarrito();
 
   useEffect(() => {
     const obtenerDatosProducto = async () => {
@@ -33,13 +36,13 @@ function Producto({ agregarAlCarrito }) {
       const productoEnCarrito = {
         id: producto.id,
         title: producto.title,
-        precio: producto.precio,
-        cantidad: cantidad,
-        subtotal: cantidad * producto.precio,
+        precio: parseFloat(producto.precio),
+        cantidad: parseFloat(cantidad),
+        subtotal: parseFloat(cantidad) * parseFloat(producto.precio),
       };
 
       agregarAlCarrito(productoEnCarrito);
-      navigate('/carrito');  
+      navigate('/carrito');
     }
   };
 

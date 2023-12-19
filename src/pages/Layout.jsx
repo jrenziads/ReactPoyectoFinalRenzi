@@ -7,7 +7,7 @@ function Layout(){
         <div>
             <NavBar/>
             <Outlet/>
-            <footer>Autos del Sur SA</footer>
+            <footer>Autos del Sur SA - Desarrollado por Javier Renzi</footer>
         </div>
     )
 }
