@@ -4,6 +4,7 @@ import { db } from '../config/firebase';
 import './Productos.css';
 import { Link, useLocation } from 'react-router-dom';
 
+
 function Productos() {
   const location = useLocation();
   const [productos, setProductos] = useState([]);

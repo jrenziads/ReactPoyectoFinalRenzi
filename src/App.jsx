@@ -9,6 +9,7 @@ import Layout from "./pages/Layout";
 import Producto from "./pages/Producto";
 import Carrito from "./pages/Carrito";
 import { CarritoProvider } from './components/CarritoContext';
+import Checkout from './pages/Checkout';
 function App() {
   const [carrito, setCarrito] = useState([]);
 
@@ -36,6 +37,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="galeria" element={<Galeria />} />
           <Route path="productos" element={<Productos />} />
+          <Route path="checkout" element={<Checkout />} />
           <Route path="productos/:productoId" element={<Producto agregarAlCarrito={agregarAlCarrito} />} />
           <Route path="carrito" element={<Carrito carrito={carrito} quitarDelCarrito={quitarDelCarrito} vaciarCarrito={vaciarCarrito} realizarCompra={realizarCompra} />} />
           <Route path="*" element={<Error />} />
