@@ -39,7 +39,7 @@ function Producto({ agregarAlCarrito }) {
       };
 
       agregarAlCarrito(productoEnCarrito);
-      navigate('/carrito');  // Redirige a la página de Carrito después de agregar al carrito
+      navigate('/carrito');  
     }
   };
 
