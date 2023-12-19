@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from  "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -17,8 +16,8 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-
 export const guardarCompraEnFirestore = async (compraData) => {
   const comprasCollection = collection(db, 'compras');
-  await addDoc(comprasCollection, compraData);
+  const docRef = await addDoc(comprasCollection, compraData);
+  return docRef.id;
 };

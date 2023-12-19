@@ -4,6 +4,7 @@ import { getDoc, doc, collection } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useCarrito } from '../components/CarritoContext';
 import './Producto.css';
+import 'bulma/css/bulma.min.css';
 
 function Producto() {
   const navigate = useNavigate();

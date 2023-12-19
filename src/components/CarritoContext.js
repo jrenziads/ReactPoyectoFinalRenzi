@@ -1,5 +1,3 @@
-// CarritoContext.jsx
-
 import React, { createContext, useContext, useState } from 'react';
 
 const CarritoContext = createContext();
@@ -29,15 +27,10 @@ export const CarritoProvider = ({ children }) => {
   };
 
   const finalizarCompra = (infoUsuario) => {
-    // Guardar en Firestore (implementar la lógica de Firestore)
-
-    // Otros pasos necesarios
-
-    // Generar un ID de compra
+    
     const idAleatorio = Math.floor(Math.random() * 1000000);
     setIdCompra(idAleatorio.toString());
 
-    // Limpiar el carrito u otras acciones necesarias
     vaciarCarrito();
   };
 
